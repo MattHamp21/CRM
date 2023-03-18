@@ -1,0 +1,54 @@
+nav {
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.right-items {
+  display: flex;
+  align-items: center;
+}
+
+.support-team-member {
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+.sign-out-button {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 5px 10px;
+  margin-left: 10px;
+}
+
+.sign-out-button:hover {
+  background-color: #da190b;
+}

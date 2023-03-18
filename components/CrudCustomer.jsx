@@ -45,6 +45,7 @@ function CrudCustomer() {
       address: "",
       country: "",
     });
+    window.location.reload();
   };
 
   return (

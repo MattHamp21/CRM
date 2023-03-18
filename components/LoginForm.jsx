@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import '../Css/Loginform.css'
+import { json } from 'react-router-dom';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -18,28 +19,26 @@ export default function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const response = await axios.get('http://127.0.0.1:8090/api/collections/supportTeam/records', {
-      params: {
-        username,
-        password,
-      },
-    });
-
-
-
-
-    if (response.data.length > 0) {
-      localStorage.setItem('authenticated', true);
-      console.log(response.data);
-      console.log(response.data);
-      alert('Data Retrived')
-      // Redirect the user to the home page
-      router.push('/Home');
-    } else {
-      alert('Invalid username or password');
-      console.log(response.data.username);
-
+  
+    try {
+      const response = await axios.get(`http://127.0.0.1:8090/api/collections/supportTeam/records?username=${username}&password=${password}`);
+  
+      if (response.data.items[0]) {
+        const record = response.data.items[0];
+        if (record.username === username && record.password === password) {
+          localStorage.setItem('authenticated', true);
+          localStorage.setItem('supportTeamId', record.id)
+          router.push('/Home');
+        } else {
+          alert('Invalid username or password1');
+        }
+      } else {
+        alert('Invalid username or password');        
+      }
+  
+    } catch (error) {
+      console.error(error);
+      alert('An error occurred while trying to retrieve the data');
     }
   };
 

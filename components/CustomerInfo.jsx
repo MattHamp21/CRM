@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "../Css/Customer_info.css"
 
-
-
-
-async function getCustomer() {
-  const res = await fetch('http://127.0.0.1:8090/api/collections/customer/records?page=1&perPage=30',
-  { cache: 'no-store'});
-  const data = await res.json()
-  return data?.items;
-}
-
-function Customer({ cus, onDelete, onEdit, onUpdate }) {
+function Customer({ cus, onDelete, onUpdate }) {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(cus.name);
   const [age, setAge] = useState(cus.age);
@@ -59,7 +49,7 @@ function Customer({ cus, onDelete, onEdit, onUpdate }) {
         country
       })
     });
-  
+
     if (res.ok) {
       setEditing(false);
       onUpdate(cus.id, {
@@ -78,15 +68,14 @@ function Customer({ cus, onDelete, onEdit, onUpdate }) {
   
   return (
     <tr>
-      <td>
-        {editing ? (
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        ) : (
-          <a href={`/customers/${cus.id}`}>
-            <a>{cus.name}</a>
-          </a>
-        )}
-      </td>
+<td>
+  {editing ? (
+    <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+  ) : (
+    <a href={`/customers/${cus.id}`}>{cus.name}</a>
+  )}
+</td>
+
       <td>
         {editing ? (
           <input type="text" value={age} onChange={(e) => setAge(e.target.value)} />
@@ -139,6 +128,13 @@ function Customer({ cus, onDelete, onEdit, onUpdate }) {
   );
 }
 
+async function getCustomer() {
+  const res = await fetch('http://127.0.0.1:8090/api/collections/customer/records?page=1&perPage=30', {
+    cache: 'no-store'
+  });
+  const data = await res.json();
+  return data.items;
+}
 
 export default function CustomerList(){
   const [customers, setCustomers] = useState([]);
@@ -154,15 +150,18 @@ export default function CustomerList(){
   const handleDelete = (id) => {
     setCustomers(customers.filter(c => c.id !== id));
   };
-
   const handleEdit = (id) => {
-    setCustomers(customers.map(c => {
+    setCustomers(customers.map((c) => {
       if (c.id === id) {
         return { ...c, editing: true };
+      } else if (c.editing) {
+        return { ...c, editing: false };
+      } else {
+        return c;
       }
-      return c;
     }));
   };
+  
 
   const handleUpdate = (id, updatedCustomer) => {
     const customerIndex = customers.findIndex(c => c.id === id);
