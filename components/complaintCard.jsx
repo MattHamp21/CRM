@@ -157,12 +157,7 @@ function Convo({ convo, onDelete, onEdit, setConvos }) {
             value={formValues.issue}
             onChange={handleFormChange}
           />
-          <input
-            type="text"
-            name="messages"
-            value={formValues.messages}
-            onChange={handleFormChange}
-          />
+
           <input
             type="checkbox"
             name="resolved"

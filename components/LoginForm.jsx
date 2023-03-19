@@ -27,7 +27,7 @@ export default function LoginPage() {
         const record = response.data.items[0];
         if (record.username === username && record.password === password) {
           localStorage.setItem('authenticated', true);
-          localStorage.setItem('supportTeamId', record.id)
+          localStorage.setItem('supportTeamId', record.id);
           router.push('/Home');
         } else {
           alert('Invalid username or password1');
@@ -41,7 +41,7 @@ export default function LoginPage() {
       alert('An error occurred while trying to retrieve the data');
     }
   };
-
+  
   return (
     <div className="login-form">
       <form onSubmit={handleSubmit}>

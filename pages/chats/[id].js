@@ -10,6 +10,7 @@ export default function ChatsPage() {
   const [error, setError] = useState(null);
   const [chatData, setChatData] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [customer, setCustomer] = useState(null);
 
   useEffect(() => {
     async function fetchChats() {
@@ -41,6 +42,19 @@ export default function ChatsPage() {
     }
   }, [id]);
 
+  useEffect(() => {
+    async function fetchCustomer(customerId) {
+      const res = await fetch(`http://127.0.0.1:8090/api/collections/customer/records/${customerId}`);
+      const data = await res.json();
+      setCustomer(data);
+    }
+
+    if (complaint && complaint.customer_id) {
+      fetchCustomer(complaint.customer_id);
+    }
+  }, [complaint]);
+
+
   function renderChatData() {
     if (!complaint || !complaint.chat || chatData.length === 0) return null;
 
@@ -67,9 +81,10 @@ export default function ChatsPage() {
 
   async function sendMessage(e) {
     e.preventDefault();
-
+  
     try {
       const supportMemberId = localStorage.getItem('supportTeamId');
+  
       const response = await fetch(`http://127.0.0.1:8090/api/collections/chats/records`, {
         method: 'POST',
         headers: {
@@ -81,19 +96,21 @@ export default function ChatsPage() {
           support: supportMemberId,
         }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to send message');
       }
-
+  
       const newChat = await response.json();
       setChatData([...chatData, newChat]);
       setNewMessage('');
-
+  
       const requestBody = JSON.stringify({
         chat: [...complaint.chat, newChat.id],
+        supporTeamMember: [supportMemberId],
       });
-
+      
+  
       const updateConversationResponse = await fetch(`http://127.0.0.1:8090/api/collections/conversations/records/${id}`, {
         method: 'PATCH',
         headers: {
@@ -101,11 +118,11 @@ export default function ChatsPage() {
         },
         body: requestBody,
       });
-
+  
       if (!updateConversationResponse.ok) {
         throw new Error('Failed to update conversation');
       }
-
+  
       const updatedConversation = await updateConversationResponse.json();
       setComplaint(updatedConversation);
   
@@ -114,37 +131,63 @@ export default function ChatsPage() {
     }
   }
   
-  
-  
 
   if (error) {
     return <div>Error: {error}</div>;
   }
-  if (!complaint) {
+  if (!complaint || !customer) {
     return <div>Loading...</div>;
   }
 
+
+  async function markAsResolved() {
+    try {
+      const updatedComplaint = { ...complaint, resolved: true };
+      const response = await fetch(`http://127.0.0.1:8090/api/collections/conversations/records/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedComplaint),
+      });
+
+      if (response.ok) {
+        setComplaint(updatedComplaint);
+        console.log(response)
+        alert('Complaint marked as resolved');
+      } else {
+        throw new Error('Failed to update the complaint');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('An error occurred while trying to update the complaint');
+    }
+  }
   return (
     <div>
-    <NavBar />
-    <div className="container">
-      {/* ... other content ... */}
-      <div className="complaint-info">
-        {/* ... other information ... */}
-        <div className="chat-data">{renderChatData()}</div>
+      <NavBar />
+      <div className="container">
+        <h2>Chat with {customer.name}</h2>
+        {/* ... other content ... */}
+        <div className="complaint-info">
+          {/* ... other information ... */}
+          <div className="chat-data">{renderChatData()}</div>
 
-        {/* Add a form to send messages */}
-        <form onSubmit={sendMessage}>
-          <input
-            type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Type your message"
-          />
-          <button type="submit">Send</button>
-        </form>
+          {/* Add a form to send messages */}
+          <form onSubmit={sendMessage}>
+            <input
+              type="text"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              placeholder="Type your message"
+            />
+            <button type="submit" disabled={!newMessage.trim()}>Send</button>
+            <button onClick={markAsResolved}>
+              Mark as Resolved
+            </button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-);
-}
+  );
+  }

@@ -11,15 +11,14 @@ export default function NavBar() {
       return;
     }
 
-    // Fetch the support team member's data here and update the state
     async function fetchSupportTeamMember() {
       const supportTeamId = localStorage.getItem('supportTeamId');
+      console.log(supportTeamId)
       
       if (!supportTeamId) {
         return;
       }
 
-      // Replace the URL with the correct endpoint for fetching support team member's data
       const res = await fetch(`http://127.0.0.1:8090/api/collections/supportTeam/records/${supportTeamId}`);
       const data = await res.json();
       setSupportTeamMember(data);
@@ -31,11 +30,8 @@ export default function NavBar() {
   const router = useRouter();
 
   const handleSignOut = () => {
-    // Clear authentication tokens (assuming you store them in local storage)
     localStorage.removeItem('authToken');
-    localStorage.removeItem('supportTeamId'); // Remove the stored support team member ID
-
-    // Redirect to the sign-in page
+    localStorage.removeItem('supportTeamId'); 
     router.push('/');
   };
 

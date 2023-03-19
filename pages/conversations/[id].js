@@ -57,6 +57,31 @@ export default function ComplaintPage() {
     }
   };
 
+
+  async function markAsResolved() {
+    try {
+      const updatedComplaint = { ...complaint, resolved: true };
+      const response = await fetch(`http://127.0.0.1:8090/api/collections/conversations/records/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedComplaint),
+      });
+
+      if (response.ok) {
+        setComplaint(updatedComplaint);
+        console.log(response)
+        alert('Complaint marked as resolved');
+      } else {
+        throw new Error('Failed to update the complaint');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('An error occurred while trying to update the complaint');
+    }
+  }
+
   return (
     <div>
       <NavBar />
@@ -81,6 +106,9 @@ export default function ComplaintPage() {
           <a href={`/chats/${id}`}>
             <button>Message</button>
           </a>
+          {complaint.resolved === false && (
+            <button onClick={markAsResolved}>Mark as Resolved</button>
+          )}
         </div>
       </div>
     </div>
