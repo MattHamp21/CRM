@@ -11,6 +11,16 @@ export default function ChatsPage() {
   const [chatData, setChatData] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [customer, setCustomer] = useState(null);
+  const [newCustomerMessage, setNewCustomerMessage] = useState('');
+  const [newSupportMessage, setNewSupportMessage] = useState('');
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      router.push('/');
+    }
+  }, []);
 
   useEffect(() => {
     async function fetchChats() {
@@ -79,7 +89,55 @@ export default function ChatsPage() {
     });
   }
 
-  async function sendMessage(e) {
+  async function sendMessageAsCustomer(e) {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8090/api/collections/chats/records`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: newCustomerMessage,
+          customer: customer.id,
+          support: '',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      const newChat = await response.json();
+      setChatData([...chatData, newChat]);
+      setNewCustomerMessage('');
+
+      const requestBody = JSON.stringify({
+        chat: [...complaint.chat, newChat.id],
+      });
+
+      const updateConversationResponse = await fetch(`http://127.0.0.1:8090/api/collections/conversations/records/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: requestBody,
+      });
+
+      if (!updateConversationResponse.ok) {
+        throw new Error('Failed to update conversation');
+      }
+
+      const updatedConversation = await updateConversationResponse.json();
+      setComplaint(updatedConversation);
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function sendMessageAsSupport(e) {
     e.preventDefault();
   
     try {
@@ -91,25 +149,25 @@ export default function ChatsPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: newMessage,
+          message: newSupportMessage,
           customer: '',
           support: supportMemberId,
         }),
       });
-  
+
+
       if (!response.ok) {
         throw new Error('Failed to send message');
       }
   
       const newChat = await response.json();
       setChatData([...chatData, newChat]);
-      setNewMessage('');
+      setNewSupportMessage('');;
   
       const requestBody = JSON.stringify({
         chat: [...complaint.chat, newChat.id],
-        supporTeamMember: [supportMemberId],
+        supportTeamMember: [supportMemberId], // Updated key name
       });
-      
   
       const updateConversationResponse = await fetch(`http://127.0.0.1:8090/api/collections/conversations/records/${id}`, {
         method: 'PATCH',
@@ -130,6 +188,7 @@ export default function ChatsPage() {
       console.error(error);
     }
   }
+  
   
 
   if (error) {
@@ -168,24 +227,31 @@ export default function ChatsPage() {
       <NavBar />
       <div className="container">
         <h2>Chat with {customer.name}</h2>
-        {/* ... other content ... */}
         <div className="complaint-info">
-          {/* ... other information ... */}
           <div className="chat-data">{renderChatData()}</div>
 
-          {/* Add a form to send messages */}
-          <form onSubmit={sendMessage}>
-            <input
-              type="text"
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="Type your message"
-            />
-            <button type="submit" disabled={!newMessage.trim()}>Send</button>
-            <button onClick={markAsResolved}>
-              Mark as Resolved
-            </button>
-          </form>
+
+          <form onSubmit={sendMessageAsCustomer}>
+          <input
+            type="text"
+            value={newCustomerMessage}
+            onChange={(e) => setNewCustomerMessage(e.target.value)}
+            placeholder="Type your message "
+          />
+          <button type="submit" disabled={!newCustomerMessage.trim()}>Send as Customer</button>
+        </form>
+<form onSubmit={sendMessageAsSupport}>
+          <input
+            type="text"
+            value={newSupportMessage}
+            onChange={(e) => setNewSupportMessage(e.target.value)}
+            placeholder="Type your message"
+          />
+          <button type="submit" disabled={!newSupportMessage.trim()}>Send as Support Team</button>
+          <button onClick={markAsResolved}>
+            Mark as Resolved
+          </button>
+        </form>
         </div>
       </div>
     </div>

@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import '../Css/Loginform.css'
+import React, { useState } from 'react';
+import '../Css/Signup.css';
+import pb from './pocketbase';
+import Link from 'next/link';
+
 
 export default function SignupPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [existingUsernames, setExistingUsernames] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get('http://127.0.0.1:8090/api/collections/supportTeam/records');
-      setExistingUsernames(Array.from(result.data));
-    };
-
-    fetchData();
-  }, []);
+  const [passwordConfirm, setPasswordConfirm] = useState('');
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -24,32 +17,42 @@ export default function SignupPage() {
     setPassword(event.target.value);
   };
 
+  const handlePasswordConfirmChange = (event) => {
+    setPasswordConfirm(event.target.value);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (username === '' || password === '') {
-        // Display an error message or do nothing
-        alert('Enter a username and password');
-        return;
-    } 
+    if (username === '' || password === '' || passwordConfirm === '') {
+      alert('Enter a username and password');
+      return;
+    }
     if (username.length < 8 || password.length < 8) {
       alert("Username and password must be at least 8 characters long");
       return;
     }
-
-    const usernameAlreadyExists = existingUsernames.find(record => record.username === username);
-    if (usernameAlreadyExists) {
-      alert("Username already exists");
+    if (password !== passwordConfirm) {
+      alert("Password and password confirmation do not match");
       return;
     }
 
-    const response = await axios.post('http://127.0.0.1:8090/api/collections/supportTeam/records', {
+    try {
+      const newUser = await pb.collection('supportTeam').create({
         username,
         password,
-    });
-    console.log(response.data);
-    window.location.assign('/');
+        passwordConfirm,
+      });
+      console.log(newUser);
+      window.location.assign('/');
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        alert("Username already exists");
+      } else {
+        console.error(error);
+        alert("An error occurred while trying to create the user");
+      }
+    }
   };
-
 
   return (
     <div className="signup-form">
@@ -63,7 +66,12 @@ export default function SignupPage() {
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" value={password} onChange={handlePasswordChange} />
         </div>
+        <div className="form-field">
+          <label htmlFor="passwordConfirm">Confirm Password:</label>
+          <input type="password" id="passwordConfirm" value={passwordConfirm} onChange={handlePasswordConfirmChange} />
+        </div>
         <button type="submit">Sign Up</button>
+        <Link href="/"> Login</Link>
       </form>
     </div>
   );

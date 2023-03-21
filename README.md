@@ -1,5 +1,5 @@
 
-## Getting Started
+# Getting Started
 
 First, run the DB by entering 
 './pocketbase serve'
@@ -17,10 +17,11 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
+## DB
+Using pocketbase 
 
-### To do 
-* Figure out how to make passwords secret 
-* Make a complait card dashbord, you should be able to select a card then reslove the issue though messageing
-* Fix login and make all things private so you can only see the infomation if you do login
-* Make signUp page work
+## SupportTeam - Auth 
+username
+password
+email - optional 
 

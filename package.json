@@ -6,7 +6,8 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pocketbase": "node api/index.js"
   },
   "dependencies": {
     "@next/font": "13.1.6",
@@ -14,6 +15,7 @@
     "debug": "^4.3.4",
     "form-data": "^4.0.0",
     "next": "13.1.6",
+    "pocketbase": "^0.12.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "^6.8.2",
@@ -21,3 +23,4 @@
     "twilio": "^4.8.0"
   }
 }
+ 

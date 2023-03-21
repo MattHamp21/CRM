@@ -1,56 +1,59 @@
+/* Add a Google Font import at the beginning of your CSS file */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 .container {
   margin: 50px auto;
   max-width: 800px;
-  padding: 20px;
+  padding: 30px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background-color: #fafafa;
 }
 
 h1 {
   font-size: 2.5rem;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 p {
   font-size: 1.5rem;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  line-height: 1.5;
 }
 
 .customer-info {
   display: flex;
   flex-direction: column;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
 }
 
 .label {
   font-weight: bold;
-}
-
-@media only screen and (max-width: 768px) {
-  .container {
-    margin: 20px auto;
-    padding: 10px;
-  }
-
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-
-  p {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-  }
+  margin-bottom: 5px;
 }
 
 .home-button {
   position: absolute;
   top: 120px;
   left: 20px;
-  background-color: #fff;
-  border: 1px solid #000;
+  background-color: #3498db;
+  border: none;
+  color: #fff;
   padding: 8px 12px;
   cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.home-button:hover {
+  background-color: #2980b9;
 }
 
 .message {
@@ -75,14 +78,31 @@ p {
   flex-direction: column;
   max-width: 100%;
   overflow-y: auto;
+  margin-bottom: 30px;
 }
 
 .customer-message {
   text-align: left;
-  /* Add more styles as needed */
 }
 
 .support-message {
   text-align: right;
-  /* Add more styles as needed */
+}
+
+/* Adjust padding and margin for responsiveness */
+@media only screen and (max-width: 768px) {
+  .container {
+    margin: 20px auto;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
 }

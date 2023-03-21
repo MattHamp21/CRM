@@ -35,7 +35,7 @@ export default function ChatForm({ customerId }) {
       text: messageText,
       timestamp: new Date().toISOString(),
       customerId: customerId,
-      // Add other required fields like 'from' and 'to'
+
     };
     if (await saveChatMessage(message)) {
       setMessageText('');
@@ -50,7 +50,6 @@ export default function ChatForm({ customerId }) {
       <div className="chat-messages">
         {messages.map((message, index) => (
           <div key={index} className="chat-message">
-            {/* Customize the message display here */}
             <p>{message.text}</p>
           </div>
         ))}

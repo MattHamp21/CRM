@@ -11,6 +11,14 @@ export default function ComplaintPage() {
   const [customer, setCustomer] = useState(null);
   const [error, setError] = useState(null);
 
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      router.push('/');
+    }
+  }, []);
+
   async function fetchCustomer(customerId) {
     const res = await fetch(`http://127.0.0.1:8090/api/collections/customer/records/${customerId}`);
     const data = await res.json();
@@ -21,19 +29,20 @@ export default function ComplaintPage() {
 
   async function fetchComplaint() {
     try {
-      const res = await fetch(`http://127.0.0.1:8090/api/collections/conversations/records/${id}`);
+      const res = await fetch(`http://127.0.0.1:8090/api/collections/conversations/records/${id}?populate=supportTeamMember`); 
       if (!res.ok) {
         throw new Error('Failed to fetch complaint');
       }
       const data = await res.json();
       console.log("Complaint data:", data);
       setComplaint(data);
-      fetchCustomer(data.customer_id); 
+      fetchCustomer(data.customer_id);
     } catch (err) {
       console.error(err);
       setError(err.message);
     }
   }
+  
   
 
   useEffect(() => {
@@ -89,7 +98,7 @@ export default function ComplaintPage() {
         <a href="/Complaint">
           <button className="home-button">Back</button>
         </a>
-        <h1>Complaint: {id}</h1>
+        {/* <h1>Complaint: {id}</h1> */}
         <div className="complaint-info">
           {
             customer && (

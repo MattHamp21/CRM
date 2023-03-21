@@ -15,7 +15,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <LoginPage />
-        <Link href="/SignUp">Sign Up</Link><br/>
+       
       </main>
     </>
   )

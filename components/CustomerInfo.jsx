@@ -19,7 +19,6 @@ function Customer({ cus, onDelete, onUpdate }) {
     });
 
     if (res.ok) {
-      // If the deletion is successful, remove the customer from the list
       onDelete(cus.id);
     } else {
       console.error('Failed to delete customer');

@@ -169,12 +169,6 @@ function Convo({ convo, onDelete, onEdit, setConvos }) {
               });
             }}
           />
-    {/* <input
-             type="text"
-              name="customer_id"
-             value={formValues.customer_id}
-             onChange={handleFormChange}
-           /> */}
     <button type="submit" onClick={handleFormSubmit}>Save Changes</button>
     <button type="button" onClick={handleHideForm}>Cancel</button>
     </form>

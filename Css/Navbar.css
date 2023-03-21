@@ -1,10 +1,11 @@
 nav {
-  background-color: #333;
+  background-image: linear-gradient(to right, #333, #444);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: 15px 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 nav ul {
@@ -15,7 +16,7 @@ nav ul {
 }
 
 nav li {
-  margin-right: 20px;
+  margin-right: 25px;
 }
 
 nav a {
@@ -25,7 +26,10 @@ nav a {
 }
 
 nav a:hover {
-  text-decoration: underline;
+  color: #ccc;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  padding: 2px 5px;
 }
 
 .right-items {
@@ -45,8 +49,9 @@ nav a:hover {
   color: white;
   cursor: pointer;
   font-size: 18px;
-  padding: 5px 10px;
+  padding: 5px 15px;
   margin-left: 10px;
+  border-radius: 5px;
 }
 
 .sign-out-button:hover {

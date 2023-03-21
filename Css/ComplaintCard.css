@@ -1,26 +1,39 @@
 .complaint-card {
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
   margin: 10px;
-  padding: 10px;
-  flex-basis: calc(33.33% - 20px); /* this will make the cards occupy 1/3 of the screen width */
+  padding: 20px;
+  flex-basis: calc(33.33% - 20px);
   box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.complaint-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
 }
 
 .complaint-card-container {
   display: flex;
   flex-wrap: wrap;
+  /* justify-content: space-between;  */
 }
 
 .resolved-true,
 .resolved-false {
   display: inline;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
 }
 
 .resolved-true {
-  color: green;
+  color: #2ecc71;
 }
 
 .resolved-false {
-  color: red;
+  color: #e74c3c;
 }
+

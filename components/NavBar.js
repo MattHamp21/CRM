@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
-import "../Css/Navbar.css"
+import "../Css/Navbar.css";
+import apiRequest from '@/api/apiHelper';
+import useLocalStorage from '@/api/uesLocalStorage';
 
 export default function NavBar() {
+  const [supportTeamId, setSupportTeamId] = useLocalStorage('supportTeamId', null); 
   const [supportTeamMember, setSupportTeamMember] = useState(null);
 
   useEffect(() => {
@@ -11,21 +13,29 @@ export default function NavBar() {
       return;
     }
 
-    async function fetchSupportTeamMember() {
-      const supportTeamId = localStorage.getItem('supportTeamId');
-      console.log(supportTeamId)
-      
-      if (!supportTeamId) {
-        return;
+    const fetchSupportTeamMember = async () => {
+      try {
+        const authToken = localStorage.getItem('authToken'); 
+        if (!authToken) {
+          return;
+        }
+    
+        const data = await apiRequest(
+          'GET',
+          `/supportTeam/records/${supportTeamId}`,
+          null,
+          authToken
+        );
+        setSupportTeamMember(data);
+      } catch (error) {
+        console.error(error);
       }
-
-      const res = await fetch(`http://127.0.0.1:8090/api/collections/supportTeam/records/${supportTeamId}`);
-      const data = await res.json();
-      setSupportTeamMember(data);
-    }
+    };
+    
+    
 
     fetchSupportTeamMember();
-  }, []);
+  }, [supportTeamId]);
 
   const router = useRouter();
 
@@ -39,25 +49,17 @@ export default function NavBar() {
     <nav>
       <ul>
         <li>
-          <a href="/Home">
-            Customers
-          </a>
+          <a href="/Home">Customers</a>
         </li>
         <li>
-          <a href="/Complaint">
-            Complaint
-          </a>
+          <a href="/Complaint">Complaints</a>
+        </li>
+        {/* <li>
+          <a href="/">Sign in</a>
         </li>
         <li>
-          <a href="/">
-            Sign in
-          </a>
-        </li>
-        <li>
-          <a href="/SignUp">
-            Sign up
-          </a>
-        </li>
+          <a href="/SignUp">Sign up</a>
+        </li> */}
       </ul>
       <div className="right-items">
         {supportTeamMember && (

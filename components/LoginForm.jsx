@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/router';
-import '../Css/Loginform.css'
-import { json } from 'react-router-dom';
+import '../Css/Loginform.css';
+import pb from './pocketbase';
+import Link from 'next/link';
+
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -16,32 +17,23 @@ export default function LoginPage() {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
   
     try {
-      const response = await axios.get(`http://127.0.0.1:8090/api/collections/supportTeam/records?username=${username}&password=${password}`);
-  
-      if (response.data.items[0]) {
-        const record = response.data.items[0];
-        if (record.username === username && record.password === password) {
-          localStorage.setItem('authenticated', true);
-          localStorage.setItem('supportTeamId', record.id);
-          router.push('/Home');
-        } else {
-          alert('Invalid username or password1');
-        }
-      } else {
-        alert('Invalid username or password');        
-      }
-  
+      const authData = await pb.collection('supportTeam').authWithPassword(username, password);
+      localStorage.setItem('authenticated', true);
+      localStorage.setItem('authToken', authData.token);
+      localStorage.setItem('supportTeamId', authData.record.id); 
+      console.log('AuthData', authData);
+      router.push('/Home');
     } catch (error) {
       console.error(error);
-      alert('An error occurred while trying to retrieve the data');
+      alert('Invalid username or password');
     }
   };
   
+
   return (
     <div className="login-form">
       <form onSubmit={handleSubmit}>
@@ -55,6 +47,7 @@ export default function LoginPage() {
           <input type="password" id="password" value={password} onChange={handlePasswordChange} />
         </div>
         <button type="submit">Log In</button>
+        <Link href="/SignUp">Sign Up</Link><br/>
       </form>
     </div>
   );
