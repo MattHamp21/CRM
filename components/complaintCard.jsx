@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import '../Css/ComplaintCard.css';
 
 async function getComplaint() {
   const res = await fetch('http://127.0.0.1:8090/api/collections/conversations/records?page=1&perPage=30',

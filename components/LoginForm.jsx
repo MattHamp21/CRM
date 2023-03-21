@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import '../Css/Loginform.css';
 import pb from './pocketbase';
 import Link from 'next/link';
 

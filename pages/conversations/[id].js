@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import "../../Css/complaintpage.css"
 import NavBar from '@/components/NavBar';
 
 
@@ -94,24 +93,24 @@ export default function ComplaintPage() {
   return (
     <div>
       <NavBar />
-      <div className="container">
+      <div className="container-complaint">
         <a href="/Complaint">
-          <button className="home-button">Back</button>
+          <button className="home-button-comp">Back</button>
         </a>
         {/* <h1>Complaint: {id}</h1> */}
         <div className="complaint-info">
           {
             customer && (
               <p>
-                <span className="label">Customer:</span>{" "}
+                <span className="label-covo">Customer:</span>{" "}
                 <a href={`/customers/${customer.id}`}>{customer.name}</a>
               </p>
             )
           }
-          <p><span className="label">Issue:</span> {complaint.issue}</p>
+          <p><span className="label-covo">Issue:</span> {complaint.issue}</p>
           <p>Resolved: {isResolved()}</p>
-          <p><span className="label">Date Created:</span> {new Date(complaint.created).toLocaleDateString()}</p>
-          <p><span className="label">Date Updated:</span> {new Date(complaint.updated).toLocaleDateString()}</p>
+          <p><span className="label-covo">Date Created:</span> {new Date(complaint.created).toLocaleDateString()}</p>
+          <p><span className="label-covo">Date Updated:</span> {new Date(complaint.updated).toLocaleDateString()}</p>
           <a href={`/chats/${id}`}>
             <button>Message</button>
           </a>

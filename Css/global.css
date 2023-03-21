@@ -1,0 +1,454 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Typography */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+p {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Layout */
+nav {
+  background-image: linear-gradient(to right, #333, #444);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin-right: 25px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+nav a:hover {
+  color: #ccc;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  padding: 2px 5px;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+input {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button[type="submit"] {
+  padding: 10px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+button {
+  padding: 10px;
+  margin: 20px 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #008CBA;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #006c84;
+}
+
+table {
+  width: 1200px;
+  border-collapse: collapse;
+  margin: 0 auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 10px 15px;
+  text-align: center;
+}
+
+th {
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #ddd;
+}
+
+td {
+  font-size: 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.complaint-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 20px;
+  flex-basis: calc(33.33% - 20px);
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.complaint-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+.complaint-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between;  */
+}
+
+.resolved-true,
+.resolved-false {
+  display: inline;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.resolved-true {
+  color: #2ecc71;
+}
+
+.resolved-false {
+  color: #e74c3c;
+}
+
+.container-complaint {
+  margin: 50px auto;
+  max-width: 800px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  background-color: #fff;
+}
+
+
+
+.customer-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px; /* Increase spacing */
+}
+
+.label-covo {
+  font-weight: bold;
+}
+
+.home-button-comp {
+  position: absolute;
+  top: 120px;
+  left: 20px;
+  background-color: #2ecc71; /* Use a consistent color */
+  border: 1px solid #27ae60;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: white; /* Update text color */
+  transition: background-color 0.3s ease-in-out;
+}
+
+.home-button-comp:hover {
+  background-color: #27ae60; /* Add hover effect */
+}
+
+.container-crud-cus {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+
+
+.container-customer-info {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 80vh;
+}
+
+/* Add a Google Font import at the beginning of your CSS file */
+
+.container-customer-page {
+  margin: 50px auto;
+  max-width: 800px;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background-color: #fafafa;
+}
+
+
+
+.customer-info {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.home-button {
+  position: absolute;
+  top: 120px;
+  left: 20px;
+  background-color: #3498db;
+  border: none;
+  color: #fff;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.home-button:hover {
+  background-color: #2980b9;
+}
+
+.message {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  max-width: 80%;
+}
+
+.message-customer {
+  background-color: #f1f1f1;
+  align-self: flex-start;
+}
+
+.message-support {
+  background-color: #d9e7ff;
+  align-self: flex-end;
+}
+
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  overflow-y: auto;
+  margin-bottom: 30px;
+}
+
+.customer-message {
+  text-align: left;
+}
+
+.support-message {
+  text-align: right;
+}
+
+/* Adjust padding and margin for responsiveness */
+@media only screen and (max-width: 768px) {
+  .container {
+    margin: 20px auto;
+    padding: 20px;
+  }
+
+
+}
+
+.login-form {
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.login-description {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-field {
+  margin-bottom: 20px; /* Increase spacing */
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form-field input[type="text"],
+.form-field input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out; 
+}
+
+.form-field input[type="text"]:focus,
+.form-field input[type="password"]:focus {
+  border-color: #0070f3; 
+}
+
+.form-field button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #0070f3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-field button[type="submit"]:hover {
+  background-color: #0053a8;
+}
+
+
+
+.right-items {
+  display: flex;
+  align-items: center;
+}
+
+.support-team-member {
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+.sign-out-button {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 5px 15px;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+.sign-out-button:hover {
+  background-color: #da190b;
+}
+
+.signup-form {
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-field {
+  margin-bottom: 20px; /* Increase spacing */
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 10px; /* Increase spacing */
+}
+
+.form-field input[type="text"],
+.form-field input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out; /* Add transition */
+}
+
+.form-field input[type="text"]:focus,
+.form-field input[type="password"]:focus {
+  border-color: #0070f3; /* Add focus style */
+}
+
+.form-field button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #0070f3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-field button[type="submit"]:hover {
+  background-color: #0053a8;
+}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import "../Css/Customer_info.css"
 
 function Customer({ cus, onDelete, onUpdate }) {
   const [editing, setEditing] = useState(false);
@@ -176,7 +175,7 @@ export default function CustomerList(){
   
 
   return (
-    <div className='container'>
+    <div className='container-customer-info '>
       <table>
         <thead>
           <tr>

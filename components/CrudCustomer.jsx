@@ -1,5 +1,4 @@
 import { useState } from "react";
-import '../Css/CrudCustomer.css'
 
 function CrudCustomer() {
   const [customers, setCustomers] = useState([]);
@@ -49,7 +48,7 @@ function CrudCustomer() {
   };
 
   return (
-    <div className="container">
+    <div className="container-crud-cus">
       {showForm && (
         <form onSubmit={handleAddCustomerSubmit} className="form">
           <input

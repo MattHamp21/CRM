@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import "../../Css/customerpage.css";
 import Link from 'next/link';
 import NavBar from '@/components/NavBar';
 
@@ -131,7 +130,7 @@ export default function CustomerPage() {
   return (
     <div>
       <NavBar />
-      <div className="container">
+      <div className="container-customer-page">
         <a href="/Home">
           <button className="home-button">Back</button>
         </a>

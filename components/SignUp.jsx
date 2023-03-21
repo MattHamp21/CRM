@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../Css/Signup.css';
 import pb from './pocketbase';
 import Link from 'next/link';
 

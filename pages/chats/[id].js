@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import "../../Css/customerpage.css";
 import NavBar from '@/components/NavBar';
 
 export default function ChatsPage() {

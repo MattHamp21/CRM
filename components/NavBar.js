@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import "../Css/Navbar.css";
 import apiRequest from '@/api/apiHelper';
 import useLocalStorage from '@/api/uesLocalStorage';
 
